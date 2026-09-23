@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { fetchAllLeagues, fetchLeagueBadge } from '../api'
+import { fetchAllLeagues, fetchLeagueBadge } from '@/services/api'
 
 describe('API Service', () => {
   beforeEach(() => {
@@ -13,10 +13,10 @@ describe('API Service', () => {
       ],
     }
 
-    global.fetch = vi.fn().mockResolvedValue({
+    global.fetch = vi.fn<typeof fetch>().mockResolvedValue({
       ok: true,
       json: async () => mockResponse,
-    })
+    } as any)
 
     const data = await fetchAllLeagues()
 
@@ -35,10 +35,10 @@ describe('API Service', () => {
       ],
     }
 
-    global.fetch = vi.fn().mockResolvedValue({
+    global.fetch = vi.fn<typeof fetch>().mockResolvedValue({
       ok: true,
       json: async () => mockResponse,
-    })
+    } as any)
 
     const badge = await fetchLeagueBadge('123')
 
@@ -49,20 +49,20 @@ describe('API Service', () => {
   })
 
   it('fetchLeagueBadge should return null if seasons is null', async () => {
-    global.fetch = vi.fn().mockResolvedValue({
+    global.fetch = vi.fn<typeof fetch>().mockResolvedValue({
       ok: true,
       json: async () => ({ seasons: null }),
-    })
+    } as any)
 
     const badge = await fetchLeagueBadge('999')
     expect(badge).toBeNull()
   })
 
   it('throws an error when fetch fails', async () => {
-    global.fetch = vi.fn().mockResolvedValue({
+    global.fetch = vi.fn<typeof fetch>().mockResolvedValue({
       ok: false,
       status: 500,
-    })
+    } as any)
 
     await expect(fetchAllLeagues()).rejects.toThrow('Failed to fetch leagues')
   })

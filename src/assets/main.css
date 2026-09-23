@@ -1,10 +1,7 @@
 @import 'tailwindcss';
 @custom-variant dark (&:is(.dark *));
 
-@theme {
-  --color-brand-primary: #10b981;
-  --color-brand-secondary: #059669;
-}
+
 
 @layer base {
   body {

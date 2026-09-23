@@ -1,12 +1,12 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
-import { useLeaguesStore } from '../leagues'
+import { useLeaguesStore } from '@/stores/leagues'
 import * as api from '@/services/api'
 
 // Mock the API calls
 vi.mock('@/services/api', () => ({
-  fetchAllLeagues: vi.fn(),
-  fetchLeagueBadge: vi.fn(),
+  fetchAllLeagues: vi.fn<typeof api.fetchAllLeagues>(),
+  fetchLeagueBadge: vi.fn<typeof api.fetchLeagueBadge>(),
 }))
 
 describe('Leagues Store', () => {

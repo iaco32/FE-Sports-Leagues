@@ -20,7 +20,7 @@ export async function fetchLeagueBadge(id: string): Promise<string | null> {
 
   if (data.seasons && data.seasons.length > 0) {
     // Return the first season's badge as requested in requirements
-    return data.seasons[0].strBadge
+    return data.seasons[0]?.strBadge || null
   }
   return null
 }

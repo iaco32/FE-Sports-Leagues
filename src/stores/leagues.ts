@@ -18,8 +18,8 @@ export const useLeaguesStore = defineStore('leagues', () => {
     error.value = null
     try {
       leagues.value = await fetchAllLeagues()
-    } catch (err: any) {
-      error.value = err.message || 'Error fetching leagues'
+    } catch (err: unknown) {
+      error.value = err instanceof Error ? err.message : 'Error fetching leagues'
     } finally {
       isLoading.value = false
     }
@@ -28,15 +28,15 @@ export const useLeaguesStore = defineStore('leagues', () => {
   async function getBadge(id: string): Promise<string | null> {
     // Return from cache if it exists
     if (id in badgesCache.value) {
-      return badgesCache.value[id]
+      return badgesCache.value[id] || null
     }
 
     // Otherwise fetch and cache
     try {
       const badgeUrl = await fetchLeagueBadge(id)
-      badgesCache.value[id] = badgeUrl
-      return badgeUrl
-    } catch (err) {
+      badgesCache.value[id] = badgeUrl || null
+      return badgeUrl || null
+    } catch {
       // In case of error, we can cache null to prevent infinite retries or just return null
       badgesCache.value[id] = null
       return null

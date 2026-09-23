@@ -16,14 +16,14 @@ const { isDark, toggleTheme } = useTheme()
         <h1
           class="text-xl sm:text-2xl md:text-3xl font-bold text-slate-900 dark:text-white flex items-center gap-2"
         >
-          <span class="material-symbols-outlined text-brand-primary" style="font-size: inherit"
+          <span class="material-symbols-outlined text-emerald-500" style="font-size: inherit"
             >emoji_events</span
           >
           Sports Leagues
         </h1>
         <button
           @click="toggleTheme"
-          class="p-2 sm:p-3 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-primary"
+          class="p-2 sm:p-3 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500"
           aria-label="Toggle Dark Mode"
         >
           <span v-if="!isDark" class="material-symbols-outlined">dark_mode</span>
