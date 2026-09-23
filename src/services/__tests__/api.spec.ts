@@ -22,6 +22,7 @@ describe('API Service', () => {
 
     expect(global.fetch).toHaveBeenCalledWith(
       'https://www.thesportsdb.com/api/v1/json/3/all_leagues.php',
+      { cache: 'no-store' }
     )
     expect(data).toEqual(mockResponse.leagues)
   })
