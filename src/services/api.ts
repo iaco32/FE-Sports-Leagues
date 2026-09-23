@@ -17,7 +17,7 @@ export async function fetchLeagueBadge(id: string): Promise<string | null> {
     throw new Error('Failed to fetch badge')
   }
   const data: BadgeResponse = await response.json()
-  
+
   if (data.seasons && data.seasons.length > 0) {
     // Return the first season's badge as requested in requirements
     return data.seasons[0].strBadge
