@@ -41,6 +41,11 @@ export default defineConfig({
 
     /* Only on CI systems run the tests headless */
     headless: !!process.env.CI,
+
+    /* Slow down Playwright operations so they can be visually observed */
+    launchOptions: {
+      slowMo: process.env.CI ? 0 : 500, // 500ms delay per action for visual debugging
+    },
   },
 
   /* Configure projects for major browsers */

@@ -8,6 +8,7 @@ export const useLeaguesStore = defineStore('leagues', () => {
   const badgesCache = ref<Record<string, string | null>>({})
   const isLoading = ref(false)
   const error = ref<string | null>(null)
+  const simulationMode = ref<'none' | 'error' | 'corrupted'>('none')
 
   // Filters
   const searchQuery = ref('')
@@ -16,6 +17,7 @@ export const useLeaguesStore = defineStore('leagues', () => {
   async function fetchLeagues() {
     isLoading.value = true
     error.value = null
+    simulationMode.value = 'none'
     try {
       leagues.value = await fetchAllLeagues()
     } catch (err: unknown) {
@@ -57,9 +59,35 @@ export const useLeaguesStore = defineStore('leagues', () => {
   })
 
   const uniqueSports = computed(() => {
-    const sports = new Set(leagues.value.map((l) => l.strSport))
+    const sports = new Set(leagues.value.map((l) => l.strSport).filter(Boolean))
     return Array.from(sports).sort()
   })
+
+  // Debug tools for demonstration
+  function simulateApiError() {
+    simulationMode.value = 'error'
+    error.value = 'Simulated 500 Internal Server Error. The connection was lost.'
+    leagues.value = []
+  }
+
+  function simulateCorruptedData() {
+    simulationMode.value = 'corrupted'
+    error.value = null
+    leagues.value = [
+      {
+        idLeague: 'invalid-1',
+        strLeague: 'Undefined League',
+        strSport: '',
+        strLeagueAlternate: null,
+      },
+      {
+        idLeague: 'invalid-2',
+        strLeague: 'Missing Image League',
+        strSport: 'Esports',
+        strLeagueAlternate: 'Broken API data',
+      },
+    ]
+  }
 
   return {
     leagues,
@@ -72,5 +100,8 @@ export const useLeaguesStore = defineStore('leagues', () => {
     getBadge,
     filteredLeagues,
     uniqueSports,
+    simulationMode,
+    simulateApiError,
+    simulateCorruptedData,
   }
 })

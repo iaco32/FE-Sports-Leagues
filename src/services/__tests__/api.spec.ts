@@ -16,7 +16,7 @@ describe('API Service', () => {
     global.fetch = vi.fn<typeof fetch>().mockResolvedValue({
       ok: true,
       json: async () => mockResponse,
-    } as any)
+    } as unknown as Response)
 
     const data = await fetchAllLeagues()
 
@@ -38,7 +38,7 @@ describe('API Service', () => {
     global.fetch = vi.fn<typeof fetch>().mockResolvedValue({
       ok: true,
       json: async () => mockResponse,
-    } as any)
+    } as unknown as Response)
 
     const badge = await fetchLeagueBadge('123')
 
@@ -52,7 +52,7 @@ describe('API Service', () => {
     global.fetch = vi.fn<typeof fetch>().mockResolvedValue({
       ok: true,
       json: async () => ({ seasons: null }),
-    } as any)
+    } as unknown as Response)
 
     const badge = await fetchLeagueBadge('999')
     expect(badge).toBeNull()
@@ -62,7 +62,7 @@ describe('API Service', () => {
     global.fetch = vi.fn<typeof fetch>().mockResolvedValue({
       ok: false,
       status: 500,
-    } as any)
+    } as unknown as Response)
 
     await expect(fetchAllLeagues()).rejects.toThrow('Failed to fetch leagues')
   })

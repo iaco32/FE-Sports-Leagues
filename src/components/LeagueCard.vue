@@ -39,7 +39,7 @@ async function loadBadge() {
       <div
         class="w-24 h-24 sm:w-32 sm:h-32 mb-4 rounded-xl flex items-center justify-center bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-500 shadow-inner overflow-hidden transition-all duration-300 group-hover:scale-105"
       >
-        <Transition 
+        <Transition
           enter-active-class="transition-opacity duration-500 ease-out"
           enter-from-class="opacity-0"
           enter-to-class="opacity-100"
@@ -54,14 +54,17 @@ async function loadBadge() {
             :alt="`${league.strLeague} Badge`"
             class="w-full h-full object-contain p-2"
           />
-  
+
           <div v-else-if="isBadgeLoading" class="animate-pulse flex flex-col items-center gap-2">
             <span class="material-symbols-outlined text-slate-300 dark:text-slate-600 animate-spin"
               >refresh</span
             >
           </div>
-  
-          <div v-else-if="hasAttemptedLoad && !badgeUrl" class="flex flex-col items-center text-center p-2">
+
+          <div
+            v-else-if="hasAttemptedLoad && !badgeUrl"
+            class="flex flex-col items-center text-center p-2"
+          >
             <span class="material-symbols-outlined text-slate-300 dark:text-slate-600 text-3xl mb-1"
               >image_not_supported</span
             >
@@ -70,7 +73,7 @@ async function loadBadge() {
               >No badge</span
             >
           </div>
-  
+
           <div v-else class="flex flex-col items-center text-center p-2">
             <span class="material-symbols-outlined text-slate-300 dark:text-slate-600 text-3xl mb-1"
               >touch_app</span
