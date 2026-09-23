@@ -1,0 +1,15 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-brand-primary: #10b981;
+  --color-brand-secondary: #059669;
+}
+
+@layer base {
+  body {
+    @apply bg-white text-slate-900 transition-colors duration-300;
+  }
+  .dark body {
+    @apply bg-slate-900 text-slate-100;
+  }
+}
