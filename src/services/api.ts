@@ -3,7 +3,9 @@ import type { AllLeaguesResponse, BadgeResponse, League } from '@/types'
 const API_BASE = 'https://www.thesportsdb.com/api/v1/json/3'
 
 export async function fetchAllLeagues(): Promise<League[]> {
-  const response = await fetch(`${API_BASE}/all_leagues.php`)
+  const response = await fetch(`${API_BASE}/all_leagues.php`, {
+    cache: 'no-store', // Bypasses the browser's HTTP cache
+  })
   if (!response.ok) {
     throw new Error('Failed to fetch leagues')
   }
