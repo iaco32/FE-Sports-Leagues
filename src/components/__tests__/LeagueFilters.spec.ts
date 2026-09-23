@@ -11,7 +11,7 @@ describe('Filters.vue', () => {
         plugins: [createTestingPinia({ createSpy: vi.fn })],
       },
     })
-    
+
     expect(wrapper.find('input[type="text"]').exists()).toBe(true)
     expect(wrapper.find('select').exists()).toBe(true)
   })
@@ -23,30 +23,37 @@ describe('Filters.vue', () => {
       },
     })
     const store = useLeaguesStore()
-    
+
     const input = wrapper.find('input[type="text"]')
     await input.setValue('Premier')
-    
+
     expect(store.searchQuery).toBe('Premier')
   })
 
   it('binds select to store selectedSport', async () => {
     const wrapper = mount(LeagueFilters, {
       global: {
-        plugins: [createTestingPinia({ 
-          createSpy: vi.fn,
-          initialState: {
-            leagues: { uniqueSports: ['Soccer', 'Basketball'] }
-          }
-        })],
+        plugins: [
+          createTestingPinia({
+            createSpy: vi.fn,
+            initialState: {
+              leagues: {
+                leagues: [
+                  { idLeague: '1', strSport: 'Soccer' },
+                  { idLeague: '2', strSport: 'Basketball' },
+                ],
+              },
+            },
+          }),
+        ],
       },
     })
     const store = useLeaguesStore()
-    
+
     const select = wrapper.find('select')
     const options = select.findAll('option')
     expect(options.length).toBe(3) // All Sports + Soccer + Basketball
-    
+
     await select.setValue('Soccer')
     expect(store.selectedSport).toBe('Soccer')
   })
