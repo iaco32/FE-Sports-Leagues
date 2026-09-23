@@ -45,6 +45,21 @@ test.describe('Sports Leagues App E2E', () => {
     expect(hasDark).not.toBe(hasDarkAfter)
   })
 
+  test('persists dark mode across page reloads', async ({ page }) => {
+    const html = page.locator('html')
+    const themeBtn = page.getByRole('button', { name: 'Toggle Dark Mode' })
+    
+    // Turn dark mode on
+    await themeBtn.click()
+    await expect(html).toHaveClass(/dark/)
+    
+    // Reload the page
+    await page.reload()
+    
+    // Verify it remains dark after reload
+    await expect(html).toHaveClass(/dark/)
+  })
+
   test('filters leagues by search query', async ({ page }) => {
     const searchInput = page.getByPlaceholder('Search leagues...')
     await searchInput.fill('Serie')

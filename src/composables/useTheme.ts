@@ -2,6 +2,8 @@ import { ref, watch } from 'vue'
 
 const isDark = ref(false)
 
+let initialized = false
+
 // Function to initialize the theme, can be called once in App.vue or automatically
 export function initTheme() {
   const savedTheme = localStorage.getItem('theme')
@@ -43,9 +45,10 @@ watch(
 )
 
 export function useTheme() {
-  // Initialize on first use if not already set (mostly for tests/simplicity)
-  if (!localStorage.getItem('theme')) {
+  // Always initialize on first use
+  if (!initialized) {
     initTheme()
+    initialized = true
   }
 
   function toggleTheme() {
